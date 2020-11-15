@@ -1,0 +1,29 @@
+
+
+注册
+mutation{
+  register(registerInput: {
+    userName: "x"
+    password: "xx"
+    confirmPassword: "xxx"
+    email: "as@sm.com"
+  }){
+    id
+    email
+    token
+    userName
+    createdAt
+  }
+}
+
+
+登录
+mutation{
+  login(userName: "", password: ""){
+    id
+    email
+    token
+    userName
+    createdAt
+  }
+}

@@ -1,0 +1,89 @@
+
+注册
+mutation{
+  register(registerInput: {
+    userName: "x"
+    password: "xx"
+    confirmPassword: "xxx"
+    email: "as@sm.com"
+  }){
+    id
+    email
+    token
+    userName
+    createdAt
+  }
+}
+
+
+登录
+mutation{
+  login(userName: "", password: ""){
+    id
+    email
+    token
+    userName
+    createdAt
+  }
+}
+
+when Using PostMan:
+http://localhost:5000
+Post, body, raw, JSON
+
+{
+    "query": "mutation{login(userName: \"LKH\", password: \"123456\"){id userName token}}"
+}
+
+
+create post
+mutation{
+  createPost(body: "This is another post"){
+    id
+    body
+    createdAt
+    userName
+  }
+}
+
+
+get one post
+query {
+  getPost(postId: "5f93a1df25eb946eb7349975"){
+    id
+    body
+    createdAt
+    userName
+  }
+}
+
+create comment
+mutation comment{
+  createComment
+  (postId: "5f94a17d8560898b3476d886" body:"new comment for the second post"){
+    id
+  	body
+  	comments{
+    	id
+      createdAt
+      userName
+      body
+  	}
+  }
+}
+
+
+delete comment
+mutation {
+  deleteComment(postId: "5f94a17d8560898b3476d886"
+  	commentId: "5fa74a6a0669a78ea8022f0d")
+  {
+    id
+    comments {
+      id
+      userName
+      body
+    }
+  }
+}
+
