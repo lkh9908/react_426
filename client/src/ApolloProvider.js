@@ -19,9 +19,22 @@ const authLink  = setContext (() => {
     }
 })
 
+// solving the "Cache data may be lost when replacing" issue from LikeButton
 const client = new ApolloClient({
     link: authLink.concat(httpLink),
-    cache: new InMemoryCache()
+    cache: new InMemoryCache({
+        typePolicies: {
+            Post: {
+                fields: {
+                    likes: {
+                        merge(existing, incoming) {
+                            return incoming;
+                        }
+                    }
+                }
+            }
+        }
+    })
 })
 
 export default (

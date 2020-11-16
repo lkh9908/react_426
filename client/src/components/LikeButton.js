@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import { Button, Label, Icon } from 'semantic-ui-react';
+import { Button, Label, Icon, Popup } from 'semantic-ui-react';
 
 // import MyPopup from '../util/MyPopup';
 
@@ -36,18 +36,20 @@ function LikeButton({ user, post: { id, likeCount, likes } }) {
   );
 
   return (
-    <Button as="div" labelPosition="right" onClick={likePost}>
+    <Popup content = {liked ? 'Unlike this post...' : 'Like this post...'} trigger = {
+      <Button as="div" labelPosition="right" onClick={likePost}>
       {/* <MyPopup content={liked ? 'Unlike' : 'Like'}>{likeButton}</MyPopup> */}
       {likeButton}
       <Label basic color="teal" pointing="left">
         {likeCount}
       </Label>
     </Button>
+    }/>
   );
 }
 
-// TODO: Cache data may be lost when replacing the likes field of a Post object.
-// not Solved
+// Cache data may be lost when replacing the likes field of a Post object.
+// Solved by editing ApolloProvider
 
 const LIKE_POST_MUTATION = gql`
   mutation likePost($postId: ID!) {
